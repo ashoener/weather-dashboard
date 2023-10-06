@@ -1,0 +1,23 @@
+{
+  "name": "weather-dashboard",
+  "version": "1.0.0",
+  "description": "A website allowing you to get the weather for various places",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind-watch": "tailwindcss -i src/css/style.css -o assets/css/style.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashoener/weather-dashboard.git"
+  },
+  "author": "Andrew Shoener",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashoener/weather-dashboard/issues"
+  },
+  "homepage": "https://github.com/ashoener/weather-dashboard#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}
