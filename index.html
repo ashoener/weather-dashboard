@@ -4,10 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind+Vadodara&family=Mako&family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
-  <body>
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <body class="min-h-screen flex flex-col">
+    <header class="w-screen bg-slate-500 text-center px-2 py-2">
+      <h1 class="text-4xl text-white font-header">Weather Dashboard</h1>
+    </header>
+    <aside class="flex-1 w-full md:w-80 p-4">
+      <h1 class="text-3xl font-subheader">Search for a City:</h1>
+    </aside>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="assets/js/main.js"></script>
   </body>
