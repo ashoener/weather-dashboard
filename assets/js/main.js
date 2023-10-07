@@ -27,11 +27,18 @@ async function getLatLong(location) {
   return coords;
 }
 
+async function getWeatherData(coords) {
+  return fetch(
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.long}&appid=${apiKey}`
+  ).then((res) => res.json());
+}
+
 async function search(location = "") {
   const data = Alpine.store("data");
   if (!location.length) location = data.currentCity;
   if (!location) return;
   const loc = await getLatLong(location);
+  const weatherData = await getWeatherData(loc);
   if (!data.recentCities.includes(location)) {
     data.recentCities.push(location);
     localStorage.setItem("recentCities", JSON.stringify(data.recentCities));
