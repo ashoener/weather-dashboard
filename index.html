@@ -27,11 +27,16 @@
         />
         <button type="submit">Search</button>
       </form>
-      <hr class="h-px my-2 border-0" />
+      <hr class="h-px my-2 border-0 bg-black" />
       <ul>
         <template x-for="city in $store.data.recentCities">
           <li>
-            <button type="submit" class="mb-2" x-text="city"></button>
+            <button
+              type="submit"
+              class="mb-2"
+              x-text="city"
+              x-on:click="search(city);"
+            ></button>
           </li>
         </template>
       </ul>
