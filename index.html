@@ -41,8 +41,26 @@
         </template>
       </ul>
     </aside>
-    <main class="flex-1"></main>
+    <main class="flex-1 p-4">
+      <template x-if="$store.data.weather.city != undefined" x-data="weather">
+        <div>
+          <h1 class="text-3xl font-header inline-block">
+            <span x-text="weather.getNameText()"></span>
+            <img
+              x-init="$el.src = getIconUrl($store.data.weather.list[0].weather[0].icon)"
+              class="inline-block h-14 object-center"
+              alt=""
+            />
+          </h1>
+        </div>
+      </template>
+    </main>
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
     <script src="assets/js/main.js"></script>
   </body>
 </html>

@@ -4,10 +4,33 @@ var Alpine = window.Alpine;
 const apiKey = "e229231d710a9cebff255e2b499ccac6";
 let coordinateCache = JSON.parse(localStorage.getItem("coordinateCache")) || {};
 
+const temp = JSON.parse(localStorage.getItem("temp"));
+
 document.addEventListener("alpine:init", () => {
   let recentCities = JSON.parse(localStorage.getItem("recentCities")) || [];
-  Alpine.store("data", { recentCities, currentCity: "", weatherData: {} });
+  Alpine.store("data", {
+    recentCities,
+    currentCity: "",
+    weather: temp,
+  });
+  const data = Alpine.store("data");
+  Alpine.data("weather", () => ({
+    weather: {
+      getNameText() {
+        console.log(data.weather);
+        return `
+        ${data.weather.city.name} (${dayjs
+          .unix(data.weather.list[0].dt)
+          .format("MM/DD/YYYY")})`;
+      },
+      get5Day() {},
+    },
+  }));
 });
+
+function getIconUrl(icon) {
+  return `https://openweathermap.org/img/wn/${icon}@2x.png`;
+}
 
 async function getLatLong(location) {
   if (location in coordinateCache) return coordinateCache[location];
@@ -29,7 +52,7 @@ async function getLatLong(location) {
 
 async function getWeatherData(coords) {
   return fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.lon}&appid=${apiKey}`
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.lon}&units=imperial&appid=${apiKey}`
   ).then((res) => res.json());
 }
 
@@ -38,7 +61,7 @@ async function search(location = "") {
   if (!location.length) location = data.currentCity;
   if (!location) return;
   const loc = await getLatLong(location);
-  data.weatherData = await getWeatherData(loc);
+  data.weather = await getWeatherData(loc);
   if (!data.recentCities.includes(location)) {
     data.recentCities.push(location);
     localStorage.setItem("recentCities", JSON.stringify(data.recentCities));
