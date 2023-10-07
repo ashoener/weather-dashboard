@@ -12,13 +12,31 @@
     />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-row flex-wrap content-start" x-data="">
     <header class="w-screen bg-slate-500 text-center px-2 py-2">
       <h1 class="text-4xl text-white font-header">Weather Dashboard</h1>
     </header>
-    <aside class="flex-1 w-full md:w-80 p-4">
-      <h1 class="text-3xl font-subheader">Search for a City:</h1>
+    <aside class="w-full md:w-80 p-4">
+      <h1 class="text-3xl font-subheader mb-2">Search for a City:</h1>
+      <form x-on:submit="$event.preventDefault(); search();">
+        <input
+          type="text"
+          placeholder="Austin"
+          class="rounded w-full mb-2"
+          x-model="$store.data.currentCity"
+        />
+        <button type="submit">Search</button>
+      </form>
+      <hr class="h-px my-2 border-0" />
+      <ul>
+        <template x-for="city in $store.data.recentCities">
+          <li>
+            <button type="submit" class="mb-2" x-text="city"></button>
+          </li>
+        </template>
+      </ul>
     </aside>
+    <main class="flex-1"></main>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="assets/js/main.js"></script>
   </body>

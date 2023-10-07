@@ -9,5 +9,5 @@ module.exports = {
       content: ["Mako", "sans-serif"],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")({ strategy: "base" })],
 };

@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button {
+  @apply rounded;
+  @apply block;
+  @apply bg-slate-500 !important;
+  @apply p-2;
+  @apply font-content;
+  @apply w-full;
+  @apply text-white;
+}
