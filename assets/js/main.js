@@ -23,7 +23,14 @@ document.addEventListener("alpine:init", () => {
           .unix(data.weather.list[0].dt)
           .format("MM/DD/YYYY")})`;
       },
-      get5Day() {},
+      getWeatherDays() {
+        const days = [];
+        for (let i = 7; i < data.weather.list.length; i += 8) {
+          days.push(data.weather.list[i]);
+          console.log(i);
+        }
+        return days;
+      },
     },
   }));
 });

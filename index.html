@@ -16,7 +16,7 @@
     <header class="w-screen bg-slate-500 text-center px-2 py-2">
       <h1 class="text-4xl text-white font-header">Weather Dashboard</h1>
     </header>
-    <aside class="w-full md:w-80 p-4">
+    <aside class="w-full lg:w-80 p-4">
       <h1 class="text-3xl font-subheader mb-2">Search for a City:</h1>
       <form x-on:submit="$event.preventDefault(); search();">
         <input
@@ -44,14 +44,51 @@
     <main class="flex-1 p-4">
       <template x-if="$store.data.weather.city != undefined" x-data="weather">
         <div>
-          <h1 class="text-3xl font-header inline-block">
+          <h1 class="text-3xl font-header">
             <span x-text="weather.getNameText()"></span>
             <img
               x-init="$el.src = getIconUrl($store.data.weather.list[0].weather[0].icon)"
-              class="inline-block h-14 object-center"
+              class="inline-block h-14"
               alt=""
             />
           </h1>
+          <div
+            class="w-full font-content"
+            x-data="{day: $store.data.weather.list[0]}"
+          >
+            <p>
+              Temp:
+              <span x-text="day.main.temp"></span>&deg;F
+            </p>
+            <p>Wind: <span x-text="day.wind.speed"></span> MPH</p>
+            <p>Humidity: <span x-text="day.main.humidity"></span>%</p>
+          </div>
+          <h2 class="text-2xl font-header">5-Day Forecast:</h2>
+          <div class="flex w-full flex-wrap">
+            <template x-for="day in weather.getWeatherDays()">
+              <div
+                class="basis-full lg:basis-1/5 px-4 mb-2 text-center lg:text-left text-white"
+              >
+                <div class="bg-slate-500 p-4">
+                  <h4
+                    class="text-xl font-header"
+                    x-text="dayjs.unix(day.dt).format('MM/DD/YYYY')"
+                  ></h4>
+                  <img
+                    x-init="$el.src = getIconUrl(day.weather[0].icon)"
+                    class="h-14 inline"
+                    alt=""
+                  />
+                  <p>
+                    Temp:
+                    <span x-text="day.main.temp"></span>&deg;F
+                  </p>
+                  <p>Wind: <span x-text="day.wind.speed"></span> MPH</p>
+                  <p>Humidity: <span x-text="day.main.humidity"></span>%</p>
+                </div>
+              </div>
+            </template>
+          </div>
         </div>
       </template>
     </main>
