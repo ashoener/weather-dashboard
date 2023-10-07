@@ -6,7 +6,7 @@ let coordinateCache = JSON.parse(localStorage.getItem("coordinateCache")) || {};
 
 document.addEventListener("alpine:init", () => {
   let recentCities = JSON.parse(localStorage.getItem("recentCities")) || [];
-  Alpine.store("data", { recentCities, currentCity: "" });
+  Alpine.store("data", { recentCities, currentCity: "", weatherData: {} });
 });
 
 async function getLatLong(location) {
@@ -29,7 +29,7 @@ async function getLatLong(location) {
 
 async function getWeatherData(coords) {
   return fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.long}&appid=${apiKey}`
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${coords.lat}&lon=${coords.lon}&appid=${apiKey}`
   ).then((res) => res.json());
 }
 
@@ -38,7 +38,7 @@ async function search(location = "") {
   if (!location.length) location = data.currentCity;
   if (!location) return;
   const loc = await getLatLong(location);
-  const weatherData = await getWeatherData(loc);
+  data.weatherData = await getWeatherData(loc);
   if (!data.recentCities.includes(location)) {
     data.recentCities.push(location);
     localStorage.setItem("recentCities", JSON.stringify(data.recentCities));
