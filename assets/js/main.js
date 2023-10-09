@@ -4,7 +4,7 @@ var Alpine = window.Alpine;
 const apiKey = "e229231d710a9cebff255e2b499ccac6";
 let coordinateCache = JSON.parse(localStorage.getItem("coordinateCache")) || {};
 
-const temp = JSON.parse(localStorage.getItem("temp"));
+const temp = JSON.parse(localStorage.getItem("temp")) || {};
 
 document.addEventListener("alpine:init", () => {
   let recentCities = JSON.parse(localStorage.getItem("recentCities")) || [];
@@ -27,7 +27,6 @@ document.addEventListener("alpine:init", () => {
         const days = [];
         for (let i = 7; i < data.weather.list.length; i += 8) {
           days.push(data.weather.list[i]);
-          console.log(i);
         }
         return days;
       },
